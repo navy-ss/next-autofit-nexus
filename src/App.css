@@ -1,0 +1,115 @@
+.App {
+  /* text-align: center; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+.route-main-container {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.chat-main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-content {
+  height: 100%;
+}
+
+.card {
+  background: #FFFFFF;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+  overflow: hidden;
+  margin: 12px;
+
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
+.tab-container-item.tab-item-chart {
+  width: 100%;
+  padding: 12px;
+}
+
+
+
+
+.card-response {
+  width: 100%;
+}
+
+.ant-modal-content .chart-modal-content {
+  margin-top: 24px;
+}
+
+/* Scrollbar for table */
+:where(.css-dev-only-do-not-override-166hjnt).ant-table-wrapper .ant-table {
+  scrollbar-color: auto;
+}
+
+/* WebKit Scrollbar Styles */
+* ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+* ::-webkit-scrollbar-thumb {
+  background-color: #BCBEC0;
+  /* Set the color of the scrollbar thumb */
+  border-radius: 6px;
+  /* Set the border-radius of the thumb */
+}
+
+* ::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  /* Set the color of the scrollbar track */
+}
+
+* ::-webkit-scrollbar-thumb:hover {
+  background-color: #8c8e8f;
+  /* Change the color on hover */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.App {
+  width: 100%;
+  height: 100%;
+}

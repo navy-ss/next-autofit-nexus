@@ -1,0 +1,28 @@
+.main-container {
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    overflow: hidden;
+    margin: 12px;
+}
+
+
+
+// .divider-line-horizontal {
+//     margin-top: 12px;
+//     border-top: 1px solid #888;
+// }
+.report-modal .ant-modal-content .ant-modal-close-x {
+    font-size: 24px;
+}
+
+@media screen and (max-width: 767px) {
+    // @import './mobile.scss';
+}

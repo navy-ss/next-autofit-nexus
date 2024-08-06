@@ -1,0 +1,40 @@
+.banner {
+    background-color: white;
+    height: 100%;
+
+    .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1em;
+    }
+
+    .banner-img {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 2em 2em 2em;
+        height: 95%;
+
+        .banner-img-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 200px;
+        }
+
+        .banner-title {
+            display: flex;
+            align-items: center;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #414BB2;
+            // margin-bottom: 1em;
+        }
+
+        .banner-text {
+            color: #414BB2;
+        }
+    }
+}

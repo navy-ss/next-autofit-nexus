@@ -1,0 +1,26 @@
+{
+    "global": {
+        "colorBgContainer": "#e9e0d0",
+        "colorBgPrimary": "#e9e0d0",
+        "colorBgDark": "#034EA2",        
+        "colorBgSecondary": "#ecedef",
+        "colorBgTertiary": "#BCBEC0",
+        "colorTextPrimary":"#034EA2",
+        "colorLinePrimary":"#034EA2",
+        "colorLineSecondary":"#929292",
+        "colorPrimary":"#034EA2",
+        "colorTextBody":"#000",
+        "colorBorderPrimary":"#000",
+        "colorBorderSecondary":"#034EA2",
+        "colorBorderTertiary":"#034EA2"
+    },
+    "table": {
+        "cellPaddingBlockSM": "4px",
+        "cardPaddingSM":"4px",
+        "cellPaddingBlock":"10px",
+        "cellFontSizeSM": "12px"
+    },
+    "tab": {
+        "cardPaddingSM":"0px 8px"
+    }
+}
