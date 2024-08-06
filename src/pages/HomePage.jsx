@@ -11,7 +11,8 @@ function HomePage() {
                 <div className='banner-img-container'>
                     {/* <img src={brandLogo} height={80} /> */}
                     <div className="banner-title">
-                        <img src={Nlogo} height={32} width={32} />EXT AutoFit Nexus
+                        {/* <img src={Nlogo} height={32} width={32} />EXT AutoFit Nexus */}
+                        AutoFit Nexus
                     </div>
                 </div>
 

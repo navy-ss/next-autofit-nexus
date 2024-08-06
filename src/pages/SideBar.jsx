@@ -24,8 +24,8 @@ const SideBar = (props) => {
         const currentPath = location.pathname;
         if (currentPath === `${PATH}`) {
             dispatch(updateGlobalData({ topbarTitle: '' }));
-        } else if (currentPath === `${PATH}Process`) {
-            dispatch(updateGlobalData({ topbarTitle: 'Process Assessment' }));
+        } else if (currentPath === `${PATH}Automation`) {
+            dispatch(updateGlobalData({ topbarTitle: 'Automation Potential Evaluation' }));
         } else if (currentPath === `${PATH}ROI`) {
             dispatch(updateGlobalData({ topbarTitle: 'ROI Calculator' }));
         }
@@ -44,6 +44,7 @@ const SideBar = (props) => {
                 theme="light"
                 mode="inline"
                 inlineIndent={10}
+                selectedKeys={[location.pathname]} // Set the selected key
             >
                 <Menu.Item key={`${PATH}`}>
                     <Link to={`${PATH}`}>
@@ -53,11 +54,11 @@ const SideBar = (props) => {
                         </span>
                     </Link>
                 </Menu.Item>
-                <Menu.Item key={`${PATH}Process`}>
-                    <Link to={`${PATH}Process`}>
+                <Menu.Item key={`${PATH}Automation`}>
+                    <Link to={`${PATH}Automation`}>
                         <AuditOutlined />
                         <span>
-                            Process Assessment
+                            Automation Potential Evaluation
                         </span>
                     </Link>
                 </Menu.Item>

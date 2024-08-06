@@ -21,7 +21,7 @@ const PageLayout = () => {
                     <div className="route-main-container">
                         <Routes >
                             <Route path={`${PATH}`} element={<HomePage />} />
-                            <Route path={`${PATH}Process`} element={<Questionnaire key={1} questions={questions} />} />
+                            <Route path={`${PATH}Automation`} element={<Questionnaire key={1} questions={questions} />} />
                             <Route path={`${PATH}ROI`} element={<Questionnaire key={2} questions={roiQuestions} />} />
                         </Routes >
                     </div>
