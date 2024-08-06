@@ -1,7 +1,7 @@
 import Topbar from "./topbar";
 import SideBar from "./SideBar";
 import { Layout } from "antd";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import AntdConfigProvider from '../components/AntdConfigProvider';
 import Questionnaire from "../components/Questionnaire";
@@ -23,6 +23,8 @@ const PageLayout = () => {
                             <Route path={`${PATH}`} element={<HomePage />} />
                             <Route path={`${PATH}Automation`} element={<Questionnaire key={1} questions={questions} />} />
                             <Route path={`${PATH}ROI`} element={<Questionnaire key={2} questions={roiQuestions} />} />
+                            {/* Wildcard * navigate to homepage */}
+                            <Route path="*" element={<Navigate to={`${PATH}`} />} />
                         </Routes >
                     </div>
                 </Layout>
