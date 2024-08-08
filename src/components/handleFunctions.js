@@ -11,13 +11,13 @@ const getScenario = (score) => {
 const calculateScore = (answers) => {
     let score = 0;
     const questionPoints = {
-        4: { "Yes": 5, "No": 2, "Not Sure": 1 },
-        5: { "Always": 5, "Mostly": 4, "Sometimes": 3, "Rarely": 2, "Never": 1 },
-        6: { "Always": 5, "Frequently": 4, "Sometimes": 3, "Rarely": 2, "Never": 1 },
-        7: { "Always": 5, "Frequently": 4, "Sometimes": 3, "Rarely": 2, "Never": 1 },
-        8: { "All of the data is structured and digital": 5, "Most of the data is structured and digital": 4, "Some of the data is structured and digital": 3, "Very little of the data is structured and digital": 2, "None of the data is structured and digital": 1 },
-        9: { "Applications and systems don’t require authentication, or only require username and password": 5, "Most of the applications and systems require username and password": 4, "Some of the applications and systems require username and password": 3, "Very few of the applications and systems require username and password": 2, "None of the applications and systems require username and password": 1 },
-        10: { "Yes, every part of the process has measurable performance metrics": 5, "Most parts of the process have measurable performance metrics": 4, "Some parts of the process have measurable performance metrics": 3, "Very few parts of the process have measurable performance metrics": 2, "No parts of the process have measurable performance metrics": 1 },
+        4: { "Yes": 5, "No": 2, "I don't know": 1 },
+        5: { "Always": 5, "Mostly": 4, "Sometimes": 3, "Never": 2, "I don't know": 1 },
+        6: { "Frequently": 5, "Occasionally": 4, "Rarely": 3, "Defined process: No changes expected": 2, "I don't know": 1 },
+        7: { "Always": 5, "Mostly": 4, "Sometimes": 3, "Never": 2, "I don't know": 1 },
+        8: { "All of the data is structured and digital": 5, "Most of the data is structured and digital": 4, "Some of the data is structured and digital": 3, "None of the data is structured and digital": 2, "I don't know": 1 },
+        9: { "Applications and systems don’t require authentication, or only require username and password": 5, "Applications and systems can be accessed via API": 4, "Some applications and systems require human input to authenticate (Multi-factor authentication, CAPTCHA etc)": 3, "Applications and systems require regular human input": 2, "I don't know": 1 },
+        10: { "Yes, every part of the process has measurable performance metrics": 5, "A large amount of process has measurable performance metrics": 4, "Half of the process has measurable performance metrics": 3, "Not much of the process has measurable performance metrics": 2, "I don't know": 1 },
     };
     Object.keys(answers).forEach((key) => {
         const questionNumber = parseInt(key.split('_')[1], 10);
