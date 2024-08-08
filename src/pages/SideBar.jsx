@@ -2,7 +2,7 @@ import { Button, Drawer, Dropdown, Input, Menu, Tooltip } from "antd"
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { HomeOutlined, PushpinOutlined, CalculatorOutlined, AuditOutlined } from '@ant-design/icons';
+import { HomeOutlined, DashboardOutlined, CalculatorOutlined, AuditOutlined } from '@ant-design/icons';
 import { updateGlobalData } from "../redux/actions/global";
 import Sider from "antd/es/layout/Sider";
 import '../styles/components/SideBar/index.scss';
@@ -24,6 +24,8 @@ const SideBar = (props) => {
         const currentPath = location.pathname;
         if (currentPath === `${PATH}`) {
             dispatch(updateGlobalData({ topbarTitle: '' }));
+        } else if (currentPath === `${PATH}Dashboard`) {
+            dispatch(updateGlobalData({ topbarTitle: 'Dashboard' }));
         } else if (currentPath === `${PATH}Automation`) {
             dispatch(updateGlobalData({ topbarTitle: 'Automation Potential Evaluation' }));
         } else if (currentPath === `${PATH}ROI`) {
@@ -51,6 +53,14 @@ const SideBar = (props) => {
                         <HomeOutlined />
                         <span>
                             Home
+                        </span>
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key={`${PATH}Dashboard`}>
+                    <Link to={`${PATH}Dashboard`}>
+                        <DashboardOutlined />
+                        <span>
+                            Dashboard
                         </span>
                     </Link>
                 </Menu.Item>

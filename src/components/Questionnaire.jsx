@@ -3,6 +3,7 @@ import { Card, Form, Input, Radio, Button, Progress, message, Typography } from 
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Result from './Result';
+import HeaderTitle from './HeaderTitle';
 import '../styles/components/Questionnaire/index.scss';
 import { getScenario, calculateScore } from './handleFunctions';
 
@@ -80,63 +81,66 @@ const Questionnaire = ({ questions }) => {
   }
 
   return (
-    <Card
-      title={`Question ${currentQuestion + 1}`}
-      className="questionnaire-card"
-      styles={{
-        header: {
-          backgroundColor: '#034EA2',
-          color: '#fff',
-          fontFamily: 'Roboto, sans-serif',
-          fontSize: '24px',
-        },
-      }}
-    >
-      <Form
-        form={form}
-        layout="vertical"
-        initialValues={{}}  // Ensure form starts with empty values
-        key={currentQuestion}  // Add key to reinitialize form when question changes
+    <>
+      <HeaderTitle />
+      <Card
+        title={`Question ${currentQuestion + 1}`}
+        className="questionnaire-card"
+        styles={{
+          header: {
+            backgroundColor: '#034EA2',
+            color: '#fff',
+            fontFamily: 'Roboto, sans-serif',
+            fontSize: '24px',
+          },
+        }}
       >
-        <div className={animation}>
-          {questions.map((question, index) => (
-            currentQuestion === index && (
-              <Form.Item
-                key={question.id}
-                name={`question_${question.id}`}
-                label={<Title level={3} style={{ fontFamily: 'Roboto, sans-serif' }}>{question.text}</Title>}
-                rules={[{ required: true, message: 'Please provide an answer!' }]}
-              >
-                {question.type === 'text' ? (
-                  <Input style={{ fontFamily: 'Roboto, sans-serif', fontSize: '20px' }} />
-                ) : question.type === 'textarea' ? (
-                  <TextArea rows={4} style={{ fontFamily: 'Roboto, sans-serif', fontSize: '20px' }} />
-                ) : (
-                  <Radio.Group>
-                    {question.options.map((option, index) => (
-                      <div key={index} style={{ marginBottom: '8px' }}>
-                        <Radio value={option} style={{ fontFamily: 'Roboto, sans-serif', fontSize: '20px' }}>{option}</Radio>
-                      </div>
-                    ))}
-                  </Radio.Group>
-                )}
-              </Form.Item>
-            )
-          ))}
-        </div>
-        <Form.Item>
-          <Button type="default" onClick={handlePrev} disabled={currentQuestion === 0} style={{ marginRight: '8px' }}>
-            Previous
-          </Button>
-          {currentQuestion < questions.length - 1 ? (
-            <Button type="primary" onClick={handleNext}>Next</Button>
-          ) : (
-            <Button type="primary" onClick={handleSubmit}>Submit</Button>
-          )}
-        </Form.Item>
-        <Progress percent={progressPercent} showInfo={false} />
-      </Form>
-    </Card>
+        <Form
+          form={form}
+          layout="vertical"
+          initialValues={{}}  // Ensure form starts with empty values
+          key={currentQuestion}  // Add key to reinitialize form when question changes
+        >
+          <div className={animation}>
+            {questions.map((question, index) => (
+              currentQuestion === index && (
+                <Form.Item
+                  key={question.id}
+                  name={`question_${question.id}`}
+                  label={<Title level={3} style={{ fontFamily: 'Roboto, sans-serif' }}>{question.text}</Title>}
+                  rules={[{ required: true, message: 'Please provide an answer!' }]}
+                >
+                  {question.type === 'text' ? (
+                    <Input style={{ fontFamily: 'Roboto, sans-serif', fontSize: '20px' }} />
+                  ) : question.type === 'textarea' ? (
+                    <TextArea rows={4} style={{ fontFamily: 'Roboto, sans-serif', fontSize: '20px' }} />
+                  ) : (
+                    <Radio.Group>
+                      {question.options.map((option, index) => (
+                        <div key={index} style={{ marginBottom: '8px' }}>
+                          <Radio value={option} style={{ fontFamily: 'Roboto, sans-serif', fontSize: '20px' }}>{option}</Radio>
+                        </div>
+                      ))}
+                    </Radio.Group>
+                  )}
+                </Form.Item>
+              )
+            ))}
+          </div>
+          <Form.Item>
+            <Button type="default" onClick={handlePrev} disabled={currentQuestion === 0} style={{ marginRight: '8px' }}>
+              Previous
+            </Button>
+            {currentQuestion < questions.length - 1 ? (
+              <Button type="primary" onClick={handleNext}>Next</Button>
+            ) : (
+              <Button type="primary" onClick={handleSubmit}>Submit</Button>
+            )}
+          </Form.Item>
+          <Progress percent={progressPercent} showInfo={false} />
+        </Form>
+      </Card>
+    </>
   );
 };
 

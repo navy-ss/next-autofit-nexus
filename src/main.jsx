@@ -6,7 +6,7 @@ import App from './App.jsx'
 import './index.css'
 import { Provider, useDispatch } from 'react-redux';
 
-console.log('import meta', import.meta.env.VITE_APP_KEYCLOAK_CLIENT_ID)
+// console.log('import meta', import.meta.env.VITE_APP_KEYCLOAK_CLIENT_ID)
 const kc = new Keycloak({
     clientId: import.meta.env.VITE_APP_KEYCLOAK_CLIENT_ID,
     realm: import.meta.env.VITE_APP_KEYCLOAK_REALM,

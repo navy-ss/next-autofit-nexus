@@ -58,9 +58,9 @@ const Topbar = (props) => {
                     </div>
                 </div>
 
-                <div style={{ fontFamily: "Roboto", fontSize: "24px", color: "#414BB2", fontWeight: "500" }}>
+                {/* <div style={{ fontFamily: "Roboto", fontSize: "24px", color: "#414BB2", fontWeight: "500" }}>
                     {topbarTitle}
-                </div>
+                </div> */}
                 <div
 
                     style={{

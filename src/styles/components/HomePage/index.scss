@@ -1,60 +1,40 @@
-.home-page {
-  .banner {
-    background-color: white;
-    // height: 100%;
+.banner {
+  background-color: white;
+  height: 100%;
 
-    .logo {
+  .logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1em;
+  }
+
+  .banner-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2em 2em 2em;
+    height: 95%;
+
+    .banner-img-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 1em;
+      gap: 200px;
     }
 
-    .banner-img {
+    .banner-title {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
-      padding: 0 2em 2em 2em;
-      height: 95%;
-
-      .banner-img-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 200px;
-      }
-
-      .banner-title {
-        display: flex;
-        align-items: center;
-        font-size: 2.5em;
-        font-weight: 700;
-        color: #414bb2;
-        // margin-bottom: 1em;
-      }
-
-      .banner-text {
-        color: #414bb2;
-      }
+      font-size: 2.5em;
+      font-weight: 700;
+      color: #414bb2;
+      // margin-bottom: 1em;
     }
-  }
 
-  .table-container {
-    padding: 0 20px;
-    margin-top: 50px;
-
-    .dashboard-table.ant-table-wrapper .ant-table-thead > tr > th {
-      color: #edf9fe;
-      text-align: center;
-    }
-    .dashboard-table {
-      .ant-table-tbody {
-        text-align: center;
-      }
-    }
-    .dashboard-table.ant-table-wrapper .ant-table {
-      scrollbar-color: auto;
+    .banner-text {
+      color: #414bb2;
     }
   }
 }

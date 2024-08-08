@@ -1,0 +1,21 @@
+.home-page {
+    .table-container {
+        padding: 0 20px;
+        // margin-top: 50px;
+
+        .dashboard-table.ant-table-wrapper .ant-table-thead>tr>th {
+            color: #edf9fe;
+            text-align: center;
+        }
+
+        .dashboard-table {
+            .ant-table-tbody {
+                text-align: center;
+            }
+        }
+
+        .dashboard-table.ant-table-wrapper .ant-table {
+            scrollbar-color: auto;
+        }
+    }
+}
