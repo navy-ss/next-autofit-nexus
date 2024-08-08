@@ -11,6 +11,7 @@ const AntdConfigProvider = (props) => {
                     //fontFamily:'Nunito Sans'
                     colorPrimary: antdThemeConfig.global.colorPrimary,
                     colorText: antdThemeConfig.global.colorTextBody,
+                    // colorText: "#edf9fe",
                     colorBorder: antdThemeConfig.global.colorBorderSecondary,
                     colorBgContainer: '#F0F2F6'
                 },
@@ -18,7 +19,8 @@ const AntdConfigProvider = (props) => {
                     Table: {
                         //colorBgContainer: antdThemeConfig.global.colorBgContainer,
                         borderColor: antdThemeConfig.global.colorLineSecondary,
-                        headerBg: antdThemeConfig.global.colorBgSecondary,
+                        // headerBg: antdThemeConfig.global.colorBgSecondary,
+                        headerBg: "#034ea2",
                         headerBorderRadius: 0,
                         cellPaddingBlockSM: antdThemeConfig.table.cellPaddingBlockSM,
                         colorBgContainer: '#fff'
