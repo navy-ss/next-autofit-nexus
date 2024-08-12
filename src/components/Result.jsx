@@ -13,11 +13,11 @@ const Result = ({ scenarioTitle, scenarioDescription, onRetest }) => {
     return (
         <div className="result-container">
             <Card className="questionnaire-card" style={{ marginTop: "50px" }}>
-                <Title level={3}>{scenarioTitle}</Title>
-                <Paragraph>{scenarioDescription}</Paragraph>
+                <Title level={1}>{scenarioTitle}</Title>
+                <Paragraph style={{ fontSize: "20px" }}>{scenarioDescription}</Paragraph>
                 <Flex justifyContent="center">
                     {/* <Button type="primary" onClick={() => navigate(`${PATH}`)}>Back to Home</Button> */}
-                    <Button type="primary" onClick={onRetest} style={{ marginRight: '8px' }}>Retest</Button>
+                    <Button type="primary" onClick={onRetest} style={{ marginRight: '8px', fontSize: "18px", padding: "18px" }}>Retest</Button>
                 </Flex>
             </Card>
             {/* <Button type="default" onClick={() => navigate(`${PATH}ROI`)} style={{marginTop: "30px"}}>ROI Calculator</Button> */}

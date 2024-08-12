@@ -38,7 +38,7 @@ const columns = [
 const data = [
   {
     key: "1",
-    processName: "Automation Potential Evaluation",
+    processName: "Process 1",
     owner: "Suruchi Pendse",
     evaluatedOn: "08/08/2024",
     evaluationSummary: "Process is an ideal fit for automation",
@@ -46,7 +46,7 @@ const data = [
   },
   {
     key: "2",
-    processName: "Automation Potential Evaluation",
+    processName: "Process 2",
     owner: "Suruchi Pendse",
     evaluatedOn: "08/08/2024",
     evaluationSummary: "Process is a good fit with minor adjustments needed",
