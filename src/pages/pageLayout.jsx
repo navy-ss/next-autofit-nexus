@@ -5,6 +5,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 
 import AntdConfigProvider from '../components/AntdConfigProvider';
 import Questionnaire from "../components/Questionnaire";
+import RoiQuestionnaire from "../components/RoiQuestionnaire";
 import HomePage from "./HomePage";
 import questions from "../questions";
 import roiQuestions from "../roiQuestions";
@@ -24,7 +25,7 @@ const PageLayout = () => {
                             <Route path={`${PATH}`} element={<HomePage />} />
                             <Route path={`${PATH}Dashboard`} element={<Dashboard />} />
                             <Route path={`${PATH}Automation`} element={<Questionnaire key={1} questions={questions} />} />
-                            <Route path={`${PATH}ROI`} element={<Questionnaire key={2} questions={roiQuestions} />} />
+                            <Route path={`${PATH}ROI`} element={<RoiQuestionnaire key={2} questions={roiQuestions} />} />
                             {/* Wildcard * navigate to homepage */}
                             <Route path="*" element={<Navigate to={`${PATH}`} />} />
                         </Routes >

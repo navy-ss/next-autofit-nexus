@@ -1,0 +1,21 @@
+.roi-result-container {
+    padding: 20px;
+    margin: auto;
+    max-width: 900px;
+    text-align: center;
+
+    .result-table {
+        .ant-table {
+            font-size: 16px; // Increase the font size here
+        }
+
+        .ant-table-thead>tr>th {
+            color: #edf9fe;
+            // text-align: center;
+        }
+
+        .ant-table-tbody {
+            // text-align: center;
+        }
+    }
+}
