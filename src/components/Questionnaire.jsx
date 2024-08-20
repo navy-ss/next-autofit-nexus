@@ -1,22 +1,34 @@
-import { useState } from 'react';
-import { Card, Form, Input, Radio, Button, Progress, message, Typography } from 'antd';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { Card, Form, Input, Radio, Button, Progress, message, Typography, Spin } from 'antd';
+import { useLocation } from 'react-router-dom'; // Import useLocation
 import PropTypes from 'prop-types';
 import Result from './Result';
 import HeaderTitle from './HeaderTitle';
 import '../styles/components/Questionnaire/index.scss';
-import { getScenario, calculateScore } from './handleFunctions';
+// import { getScenario, calculateScore } from './handleFunctions';
+import { useSelector } from 'react-redux';
+import { saveProcessData, editProcessData } from './handleFunctions';
 
 const { Title } = Typography;
 const { TextArea } = Input;
 
-const Questionnaire = ({ questions }) => {
+const Questionnaire = () => {
+  const location = useLocation(); // Get location to access state
+  const { dashboard_automation_id, initial_values } = location.state || {}; // Destructure state from location
+  const processQuestions = useSelector((state) => state.global.processQuestions);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [form] = Form.useForm();
   const [submitted, setSubmitted] = useState(false);
   const [animation, setAnimation] = useState('fade-in');
   const [answers, setAnswers] = useState({});
   const [scenario, setScenario] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (initial_values) {
+      form.setFieldsValue(initial_values);
+    }
+  }, [form, initial_values]);
 
   const handleNext = () => {
     form.validateFields()
@@ -47,13 +59,47 @@ const Questionnaire = ({ questions }) => {
   const handleSubmit = () => {
     form.validateFields()
       .then((values) => {
+        setLoading(true);
         const payload = { ...answers, ...values };
-        const score = calculateScore(payload);
-        console.log("Score: ", score);
-        const scenario = getScenario(score);
-        setScenario(scenario);
-        setSubmitted(true);
-        message.success('Submitted successfully');
+        saveProcessData(payload)
+          .then((data) => {
+            setScenario(data);
+            setSubmitted(true);
+            message.success('Submitted successfully');
+          })
+          .catch((error) => {
+            console.log(error);
+            message.error('Failed to submit data');
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      })
+      .catch((info) => {
+        console.log('Validate Failed:', info);
+      });
+  };
+
+  const handleSave = () => {
+    form.validateFields()
+      .then((values) => {
+        setLoading(true);
+        const payload = { ...answers, ...values };
+        if (dashboard_automation_id) {
+          editProcessData({ dashboard_automation_id: dashboard_automation_id, answers: payload })
+            .then((data) => {
+              setScenario(data);
+              setSubmitted(true);
+              message.success('Data saved successfully');
+            })
+            .catch((error) => {
+              console.log(error);
+              message.error('Failed to save data');
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        }
       })
       .catch((info) => {
         console.log('Validate Failed:', info);
@@ -68,20 +114,21 @@ const Questionnaire = ({ questions }) => {
     setAnswers({});
   };
 
-  const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+  const progressPercent = ((currentQuestion + 1) / processQuestions.length) * 100;
 
   if (submitted) {
     return (
       <Result
         scenarioTitle={scenario.title}
         scenarioDescription={scenario.description}
+        recordId={scenario.id}
         onRetest={handleRetest}
       />
     );
   }
 
   return (
-    <>
+    <Spin spinning={loading}>
       <HeaderTitle />
       <Card
         title={`Question ${currentQuestion + 1}`}
@@ -98,11 +145,11 @@ const Questionnaire = ({ questions }) => {
         <Form
           form={form}
           layout="vertical"
-          initialValues={{}}  // Ensure form starts with empty values
+          // initialValues={process_questions}
           key={currentQuestion}  // Add key to reinitialize form when question changes
         >
           <div className={animation}>
-            {questions.map((question, index) => (
+            {processQuestions.map((question, index) => (
               currentQuestion === index && (
                 <Form.Item
                   key={question.id}
@@ -131,8 +178,10 @@ const Questionnaire = ({ questions }) => {
             <Button type="default" onClick={handlePrev} disabled={currentQuestion === 0} style={{ marginRight: '8px' }}>
               Previous
             </Button>
-            {currentQuestion < questions.length - 1 ? (
+            {currentQuestion < processQuestions.length - 1 ? (
               <Button type="primary" onClick={handleNext}>Next</Button>
+            ) : dashboard_automation_id ? (
+              <Button type="primary" onClick={handleSave}>Save</Button>
             ) : (
               <Button type="primary" onClick={handleSubmit}>Submit</Button>
             )}
@@ -140,19 +189,19 @@ const Questionnaire = ({ questions }) => {
           <Progress percent={progressPercent} showInfo={false} />
         </Form>
       </Card>
-    </>
+    </Spin>
   );
 };
 
-Questionnaire.propTypes = {
-  questions: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      type: PropTypes.string,
-      text: PropTypes.string,
-      options: PropTypes.arrayOf(PropTypes.string),
-    })
-  ).isRequired,
-};
+// Questionnaire.propTypes = {
+//   questions: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       id: PropTypes.number,
+//       type: PropTypes.string,
+//       text: PropTypes.string,
+//       options: PropTypes.arrayOf(PropTypes.string),
+//     })
+//   ).isRequired,
+// };
 
 export default Questionnaire;

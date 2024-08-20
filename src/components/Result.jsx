@@ -6,7 +6,7 @@ import '../styles/components/Result/index.scss';
 
 const { Title, Paragraph } = Typography;
 
-const Result = ({ scenarioTitle, scenarioDescription, onRetest }) => {
+const Result = ({ scenarioTitle, scenarioDescription, onRetest, recordId }) => {
     const navigate = useNavigate();
     const PATH = import.meta.env.VITE_APP_LINK_TO_PATH;
 
@@ -23,7 +23,7 @@ const Result = ({ scenarioTitle, scenarioDescription, onRetest }) => {
             {/* <Button type="default" onClick={() => navigate(`${PATH}ROI`)} style={{marginTop: "30px"}}>ROI Calculator</Button> */}
             <Button
                 type="default"
-                onClick={() => navigate(`${PATH}ROI`)}
+                onClick={() => navigate(`${PATH}ROI`, { state: { dashboard_automation_id: recordId } })}
                 size="large"
                 style={{ marginTop: "30px", display: 'flex', alignItems: 'center' }}
             >
@@ -37,6 +37,7 @@ Result.propTypes = {
     scenarioTitle: PropTypes.string.isRequired,
     scenarioDescription: PropTypes.string.isRequired,
     onRetest: PropTypes.func.isRequired,
+    recordId: PropTypes.number,
 };
 
 export default Result;

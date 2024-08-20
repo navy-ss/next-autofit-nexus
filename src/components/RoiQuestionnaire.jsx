@@ -1,19 +1,27 @@
 // RoiQuestionnaire.jsx
 import React, { useState } from 'react';
-import { Card, Form, Input, Button, Progress, message, Typography } from 'antd';
+import { Card, Form, Input, Button, Progress, message, Typography, Spin } from 'antd';
+import { useLocation } from 'react-router-dom'; // Import useLocation
 import PropTypes from 'prop-types';
 import RoiResult from './RoiResult';
 import HeaderTitle from './HeaderTitle';
 import '../styles/components/Questionnaire/index.scss';
+import { useSelector } from 'react-redux';
+import { saveRoiData, editRoiData } from './handleFunctions';
 
 const { Title } = Typography;
 
-const RoiQuestionnaire = ({ questions }) => {
+const RoiQuestionnaire = () => {
+    const location = useLocation(); // Get location to access state
+    const { dashboard_automation_id } = location.state || {}; // Destructure state from location
+    const roiQuestions = useSelector((state) => state.global.roiQuestions);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [form] = Form.useForm();
     const [submitted, setSubmitted] = useState(false);
     const [animation, setAnimation] = useState('fade-in');
     const [answers, setAnswers] = useState({});
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const handleNext = () => {
         form.validateFields()
@@ -44,10 +52,47 @@ const RoiQuestionnaire = ({ questions }) => {
     const handleSubmit = () => {
         form.validateFields()
             .then((values) => {
+                setLoading(true);
                 const payload = { ...answers, ...values };
-                setAnswers(payload);
-                setSubmitted(true);
-                message.success('Submitted successfully');
+                saveRoiData(payload)
+                    .then((data) => {
+                        setSubmitted(true);
+                        setData(data);
+                        message.success('Data saved successfully!');
+                    })
+                    .catch((error) => {
+                        message.error(error.message);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+            })
+            .catch((info) => {
+                console.log('Validate Failed:', info);
+            });
+    };
+
+    const handleSave = () => {
+        form.validateFields()
+            .then((values) => {
+                setLoading(true);
+                const payload = { ...answers, ...values };
+                if (dashboard_automation_id) {
+                    editRoiData({ dashboard_automation_id, answers: payload })
+                        .then((data) => {
+                            setSubmitted(true);
+                            setData(data);
+                            message.success('Data saved successfully!');
+                        }
+                        )
+                        .catch((error) => {
+                            message.error(error.message);
+                        }
+                        )
+                        .finally(() => {
+                            setLoading(false);
+                        });
+                }
             })
             .catch((info) => {
                 console.log('Validate Failed:', info);
@@ -61,7 +106,7 @@ const RoiQuestionnaire = ({ questions }) => {
         setAnswers({});
     };
 
-    const progressPercent = ((currentQuestion + 1) / questions.length) * 100;
+    const progressPercent = ((currentQuestion + 1) / roiQuestions.length) * 100;
 
     const validateNumber = (_, value) => {
         if (value < 0) {
@@ -73,14 +118,15 @@ const RoiQuestionnaire = ({ questions }) => {
     if (submitted) {
         return (
             <RoiResult
-                answers={answers}
+                // answers={answers}
                 onRetest={handleRetest}
+                resultData={data}
             />
         );
     }
 
     return (
-        <>
+        <Spin spinning={loading}>
             <HeaderTitle />
             <Card
                 title={`Question ${currentQuestion + 1}`}
@@ -101,7 +147,7 @@ const RoiQuestionnaire = ({ questions }) => {
                     key={currentQuestion}
                 >
                     <div className={animation}>
-                        {questions.map((question, index) => (
+                        {roiQuestions.map((question, index) => (
                             currentQuestion === index && (
                                 <Form.Item
                                     key={question.id}
@@ -125,8 +171,10 @@ const RoiQuestionnaire = ({ questions }) => {
                         <Button type="default" onClick={handlePrev} disabled={currentQuestion === 0} style={{ marginRight: '8px' }}>
                             Previous
                         </Button>
-                        {currentQuestion < questions.length - 1 ? (
+                        {currentQuestion < roiQuestions.length - 1 ? (
                             <Button type="primary" onClick={handleNext}>Next</Button>
+                        ) : dashboard_automation_id ? (
+                            <Button type="primary" onClick={handleSave}>Save</Button>
                         ) : (
                             <Button type="primary" onClick={handleSubmit}>Submit</Button>
                         )}
@@ -134,18 +182,18 @@ const RoiQuestionnaire = ({ questions }) => {
                     <Progress percent={progressPercent} showInfo={false} />
                 </Form>
             </Card>
-        </>
+        </Spin>
     );
 };
 
-RoiQuestionnaire.propTypes = {
-    questions: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number,
-            type: PropTypes.string,
-            text: PropTypes.string,
-        })
-    ).isRequired,
-};
+// RoiQuestionnaire.propTypes = {
+//     questions: PropTypes.arrayOf(
+//         PropTypes.shape({
+//             id: PropTypes.number,
+//             type: PropTypes.string,
+//             text: PropTypes.string,
+//         })
+//     ).isRequired,
+// };
 
 export default RoiQuestionnaire;

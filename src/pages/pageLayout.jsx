@@ -2,17 +2,23 @@ import Topbar from "./topbar";
 import SideBar from "./SideBar";
 import { Layout } from "antd";
 import { Route, Routes, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import AntdConfigProvider from '../components/AntdConfigProvider';
 import Questionnaire from "../components/Questionnaire";
 import RoiQuestionnaire from "../components/RoiQuestionnaire";
 import HomePage from "./HomePage";
-import questions from "../questions";
-import roiQuestions from "../roiQuestions";
+// import questions from "../questions";
+// import roiQuestions from "../roiQuestions";
 import Dashboard from "./Dashboard";
+import masterFunction from "./masterFunctions";
 
 const PATH = import.meta.env.VITE_APP_LINK_TO_PATH;
 const PageLayout = () => {
+
+    useEffect(() => {
+        masterFunction();
+    }, []);
 
     return (
         <AntdConfigProvider>
@@ -24,8 +30,8 @@ const PageLayout = () => {
                         <Routes >
                             <Route path={`${PATH}`} element={<HomePage />} />
                             <Route path={`${PATH}Dashboard`} element={<Dashboard />} />
-                            <Route path={`${PATH}Automation`} element={<Questionnaire key={1} questions={questions} />} />
-                            <Route path={`${PATH}ROI`} element={<RoiQuestionnaire key={2} questions={roiQuestions} />} />
+                            <Route path={`${PATH}Automation`} element={<Questionnaire />} />
+                            <Route path={`${PATH}ROI`} element={<RoiQuestionnaire />} />
                             {/* Wildcard * navigate to homepage */}
                             <Route path="*" element={<Navigate to={`${PATH}`} />} />
                         </Routes >

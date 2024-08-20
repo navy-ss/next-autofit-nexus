@@ -14,6 +14,8 @@ const INITIAL_STATE = {
   languageList: [],
   googleKey: '',
   topbarTitle: '',
+  processQuestions: [],
+  roiQuestions: [],
 };
 
 export default (state = INITIAL_STATE, action = {}) => {

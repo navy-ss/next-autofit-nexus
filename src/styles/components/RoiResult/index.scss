@@ -19,3 +19,17 @@
         }
     }
 }
+
+.ant-modal-content {
+    .ant-modal-body {
+        .result-savings-table {
+            .ant-table {
+                font-size: 16px; // Increase the font size here
+            }
+
+            .ant-table-thead>tr>th {
+                color: #edf9fe;
+            }
+        }
+    }
+}

@@ -1,4 +1,7 @@
 import { SCENARIOS } from "./scenarios";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const getScenario = (score) => {
     if (score >= 33) return SCENARIOS[0];
@@ -29,4 +32,78 @@ const calculateScore = (answers) => {
     return score;
 };
 
-export { getScenario, calculateScore };
+const getProcessQuestions = () => {
+    return Promise.all([
+        axios.get(`${API_URL}/process_questions`),
+        axios.get(`${API_URL}/roi_questions`)
+    ]).then((responses) => {
+        const processQuestions = responses[0].data;
+        const roiQuestions = responses[1].data;
+        return { processQuestions, roiQuestions };
+    }).catch((error) => {
+        console.log(error);
+        throw error; // Re-throw the error to be caught by the calling function if necessary
+    });
+}
+
+const getDashboardData = () => {
+    return new Promise((resolve, reject) => {
+        axios.get(`${API_URL}/process/dashboard`)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
+const saveProcessData = (data) => {
+    return new Promise((resolve, reject) => {
+        axios.post(`${API_URL}/save_process_data`, data)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
+const editProcessData = (data) => {
+    return new Promise((resolve, reject) => {
+        axios.put(`${API_URL}/edit_process_data`, data)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
+const saveRoiData = (data) => {
+    return new Promise((resolve, reject) => {
+        axios.post(`${API_URL}/save_calculate_roi_data`, data)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
+const editRoiData = (data) => {
+    return new Promise((resolve, reject) => {
+        axios.put(`${API_URL}/edit_calculate_roi_data`, data)
+            .then((response) => {
+                resolve(response.data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+}
+
+export { getScenario, calculateScore, getProcessQuestions, getDashboardData, saveProcessData, editProcessData, saveRoiData, editRoiData };
