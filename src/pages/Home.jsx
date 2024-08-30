@@ -18,6 +18,7 @@ import Paragraph from "antd/lib/typography/Paragraph";
 
 import Echart from "../components/chart/EChart";
 import LineChart from "../components/chart/LineChart";
+import ProjectsPage from "../components/ProjectsPage";
 import "../styles/components/Dashboard/index.scss";
 
 import ava1 from "../assets/images/logo-shopify.svg";
@@ -472,6 +473,7 @@ function Home() {
                         </Card>
                     </Col>
                 </Row>
+                <ProjectsPage />
             </div>
         </>
     );

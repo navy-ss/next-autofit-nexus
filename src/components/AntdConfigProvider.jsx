@@ -3,6 +3,7 @@ import { ConfigProvider } from 'antd';
 import antdThemeConfig from '../styles/antdThemeConfig.json';
 
 const AntdConfigProvider = (props) => {
+    const colorLineSecondary = "#b0d2ff";
     return (
 
         <ConfigProvider
@@ -18,7 +19,8 @@ const AntdConfigProvider = (props) => {
                 components: {
                     Table: {
                         //colorBgContainer: antdThemeConfig.global.colorBgContainer,
-                        borderColor: antdThemeConfig.global.colorLineSecondary,
+                        // borderColor: antdThemeConfig.global.colorLineSecondary,
+                        borderColor: colorLineSecondary,
                         // headerBg: antdThemeConfig.global.colorBgSecondary,
                         headerBg: "#034ea2",
                         headerBorderRadius: 0,
@@ -42,7 +44,9 @@ const AntdConfigProvider = (props) => {
                         dotHeight: '6px',
                         dotActiveWidth: '20px',
                         dotWidth: '20px',
-
+                    },
+                    Card: {
+                        colorBgContainer: '#fff',
                     },
 
                 },

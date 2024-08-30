@@ -20,11 +20,38 @@
     }
 }
 
+.dashboard-table.ant-table-wrapper .ant-table-thead>tr>th {
+    color: #edf9fe;
+}
+
+.dashboard-table.ant-table-wrapper .ant-table {
+    scrollbar-color: auto;
+}
+
+.overflow-scroll {
+    overflow: auto;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.ant-tabs-top>.ant-tabs-nav::before {
+    border-bottom: 1px solid #b0d2ff;
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .overflow-scroll {
+        overflow: hidden;
+    }
+}
+
 .layout-content {
     overflow-y: auto;
     overflow-x: hidden;
     height: 100%;
-    padding: 2em;
+    padding: 2em 1em;
 }
 
 .tootip-img {

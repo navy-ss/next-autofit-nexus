@@ -26,6 +26,8 @@ const SideBar = (props) => {
             dispatch(updateGlobalData({ topbarTitle: '' }));
         } else if (currentPath === `${PATH}Dashboard`) {
             dispatch(updateGlobalData({ topbarTitle: 'Dashboard' }));
+        } else if (currentPath === `${PATH}Dashboard-InProgess`) {
+            dispatch(updateGlobalData({ topbarTitle: 'Dashboard InProgess' }));
         } else if (currentPath === `${PATH}Automation`) {
             dispatch(updateGlobalData({ topbarTitle: 'Automation Potential Evaluation' }));
         } else if (currentPath === `${PATH}ROI`) {
@@ -61,6 +63,14 @@ const SideBar = (props) => {
                         <DashboardOutlined />
                         <span>
                             Dashboard
+                        </span>
+                    </Link>
+                </Menu.Item>
+                <Menu.Item key={`${PATH}Dashboard-InProgess`}>
+                    <Link to={`${PATH}Dashboard-InProgess`}>
+                        <DashboardOutlined />
+                        <span>
+                            Dashboard InProgess
                         </span>
                     </Link>
                 </Menu.Item>

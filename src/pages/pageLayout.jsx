@@ -10,7 +10,7 @@ import RoiQuestionnaire from "../components/RoiQuestionnaire";
 import HomePage from "./HomePage";
 // import questions from "../questions";
 // import roiQuestions from "../roiQuestions";
-// import Dashboard from "./Dashboard";
+import Dashboard from "./Dashboard";
 import masterFunction from "./masterFunctions";
 import Home from "./Home";
 
@@ -30,7 +30,8 @@ const PageLayout = () => {
                     <div className="route-main-container">
                         <Routes >
                             <Route path={`${PATH}`} element={<HomePage />} />
-                            <Route path={`${PATH}Dashboard`} element={<Home />} />
+                            <Route path={`${PATH}Dashboard`} element={<Dashboard />} />
+                            <Route path={`${PATH}Dashboard-InProgess`} element={<Home />} />
                             <Route path={`${PATH}Automation`} element={<Questionnaire />} />
                             <Route path={`${PATH}ROI`} element={<RoiQuestionnaire />} />
                             {/* Wildcard * navigate to homepage */}
