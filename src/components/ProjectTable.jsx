@@ -1,4 +1,7 @@
-import { Badge, Table, Tag, Typography } from 'antd';
+import { Badge, Table, Tag, Typography, Button } from 'antd';
+import { useNavigate } from "react-router-dom";
+
+const PATH = import.meta.env.VITE_APP_LINK_TO_PATH;
 
 const COLUMNS = [
     {
@@ -75,18 +78,62 @@ const COLUMNS = [
     },
 ];
 
-const ProjectsTable = ({ data, ...others }) => (
-    <Table
-        dataSource={data}
-        columns={COLUMNS}
-        onRow={(record) => ({
-            style: {
-                backgroundColor: record.row_color || 'lightgray', // Apply color from data or fallback to gray
-            },
-        })}
-        className="overflow-scroll dashboard-table"
-        {...others}
-    />
-);
+const ProjectsTable = ({ data, ...others }) => {
+    const navigate = useNavigate(); // Initialize useNavigate
+
+    const columns = [
+        {
+            title: "Process Name",
+            dataIndex: "process_name",
+            key: "process_name",
+        },
+        {
+            title: "Owner",
+            dataIndex: "owner",
+            key: "owner",
+        },
+        {
+            title: "Evaluated On",
+            dataIndex: "evaluated_on",
+            key: "evaluated_on",
+            render: (text) => new Date(text).toLocaleDateString(),
+        },
+        {
+            title: "Evaluation Summary",
+            dataIndex: "evaluation_summary",
+            key: "evaluation_summary",
+        },
+        {
+            title: "ROI Assessment Summary",
+            dataIndex: "roi_assessment_summary",
+            key: "roi_assessment_summary",
+        },
+        {
+            title: "Action",
+            key: "action",
+            render: (text, record) => (
+                <Button
+                    type="link"
+                    onClick={() => navigate(`${PATH}Automation`, { state: { dashboard_automation_id: record.id, initial_values: record.process_questions } })}
+                >
+                    View/Modify
+                </Button>
+            ),
+        },
+    ];
+    return (
+        <Table
+            dataSource={data}
+            columns={columns}
+            onRow={(record) => ({
+                style: {
+                    backgroundColor: record.row_color || 'lightgray', // Apply color from data or fallback to gray
+                },
+            })}
+            className="overflow-scroll dashboard-table"
+            {...others}
+        />
+    )
+};
 
 export default ProjectsTable;

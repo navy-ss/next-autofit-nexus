@@ -1,11 +1,11 @@
 import ReactApexChart from "react-apexcharts";
 import { Typography } from "antd";
 import { MinusOutlined } from "@ant-design/icons";
-import lineChart from "./configs/lineChart";
+import createLineChartConfig from "./configs/lineChart";
 
-function LineChart() {
+function LineChart({ data }) {
   const { Title, Paragraph } = Typography;
-
+  const lineChart = createLineChartConfig(data);
   return (
     <>
       <div className="linechart">

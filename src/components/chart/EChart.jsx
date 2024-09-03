@@ -1,9 +1,11 @@
 import ReactApexChart from "react-apexcharts";
 import { Row, Col, Typography } from "antd";
-import eChart from "./configs/eChart";
+import createChartConfig from "./configs/eChart";
 
-function EChart() {
+function EChart({ data }) {
   const { Title, Paragraph } = Typography;
+
+  const eChart = createChartConfig(data);
 
   const items = [
     {

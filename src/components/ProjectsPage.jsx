@@ -4,21 +4,24 @@ import { CloudUploadOutlined, PlusOutlined } from '@ant-design/icons';
 import ProjectsData from '../mocks/Projects.json';
 import ProjectsTable from './ProjectTable';
 
-const ProjectsPage = () => {
+const ProjectsPage = ({ data }) => {
+    console.log(data);
     const [projectTabsKey, setProjectsTabKey] = useState('all');
 
     const PROJECT_TABS_CONTENT = {
-        all: <ProjectsTable key="all-projects-table" data={ProjectsData} />,
+        all: <ProjectsTable key="all-projects-table" data={data} />,
         inProgress: (
             <ProjectsTable
                 key="in-progress-projects-table"
-                data={ProjectsData.filter((project) => project.status === 'in progress')}
+                // data={ProjectsData.filter((project) => project.status === 'in progress')}
+                data={data.filter((project) => project.hours_saved > 0)}
             />
         ),
         onHold: (
             <ProjectsTable
                 key="on-hold-projects-table"
-                data={ProjectsData.filter((project) => project.status === 'on hold')}
+                // data={ProjectsData.filter((project) => project.status === 'on hold')}
+                data={data.filter((project) => !project.hours_saved)}
             />
         ),
     };
