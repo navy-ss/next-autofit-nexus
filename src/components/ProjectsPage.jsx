@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Row, Col, Card, Space, Button } from 'antd';
 import { CloudUploadOutlined, PlusOutlined } from '@ant-design/icons';
-import ProjectsData from '../mocks/Projects.json';
 import ProjectsTable from './ProjectTable';
 
+const PATH = import.meta.env.VITE_APP_LINK_TO_PATH;
+
 const ProjectsPage = ({ data }) => {
-    console.log(data);
+    const navigate = useNavigate();
     const [projectTabsKey, setProjectsTabKey] = useState('all');
 
     const PROJECT_TABS_CONTENT = {
@@ -13,14 +15,12 @@ const ProjectsPage = ({ data }) => {
         inProgress: (
             <ProjectsTable
                 key="in-progress-projects-table"
-                // data={ProjectsData.filter((project) => project.status === 'in progress')}
                 data={data.filter((project) => project.hours_saved > 0)}
             />
         ),
         onHold: (
             <ProjectsTable
                 key="on-hold-projects-table"
-                // data={ProjectsData.filter((project) => project.status === 'on hold')}
                 data={data.filter((project) => !project.hours_saved)}
             />
         ),
@@ -36,6 +36,10 @@ const ProjectsPage = ({ data }) => {
         setProjectsTabKey(key);
     };
 
+    const handleNewProcess = () => {
+        navigate(`${PATH}Automation`);
+    }
+
     return (
         <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
             <Col span={24}>
@@ -44,8 +48,8 @@ const ProjectsPage = ({ data }) => {
                     className='criclebox h-full'
                     extra={
                         <Space>
-                            <Button icon={<CloudUploadOutlined />}>Import</Button>
-                            <Button icon={<PlusOutlined />}>New processes</Button>
+                            {/* <Button icon={<CloudUploadOutlined />}>Import</Button> */}
+                            <Button icon={<PlusOutlined />} onClick={handleNewProcess}>New processes</Button>
                         </Space>
                     }
                     tabList={PROJECT_TABS}
