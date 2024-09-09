@@ -20,6 +20,19 @@
     }
 }
 
+.header-text {
+    background-color: #414bb2;
+    color: #fff;
+    font-size: 20px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
 .dashboard-table.ant-table-wrapper .ant-table-thead>tr>th {
     color: #edf9fe;
 }

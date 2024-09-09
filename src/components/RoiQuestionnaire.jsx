@@ -1,5 +1,5 @@
 // RoiQuestionnaire.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Form, Input, Button, Progress, message, Typography, Spin } from 'antd';
 import { useLocation } from 'react-router-dom'; // Import useLocation
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ const { Title } = Typography;
 
 const RoiQuestionnaire = () => {
     const location = useLocation(); // Get location to access state
-    const { dashboard_automation_id } = location.state || {}; // Destructure state from location
+    const { dashboard_automation_id, initial_values, result_data } = location.state || {}; // Destructure state from location
     const roiQuestions = useSelector((state) => state.global.roiQuestions);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [form] = Form.useForm();
@@ -22,6 +22,15 @@ const RoiQuestionnaire = () => {
     const [answers, setAnswers] = useState({});
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (result_data) {
+            setData(result_data);
+            setSubmitted(true);
+        } else if (initial_values) {
+            form.setFieldsValue(initial_values);
+        }
+    }, [form, initial_values, result_data]);
 
     const handleNext = () => {
         form.validateFields()

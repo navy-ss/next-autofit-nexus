@@ -110,6 +110,9 @@ function Dashboard() {
     return (
         <div className="layout-content">
             <Spin spinning={loading} tip="Loading...">
+                <div className="header-text">
+                    Total Number of Processes Evaluated:  {data.length}
+                </div>
                 <Row className="rowgap-vbox" gutter={[24, 0]}>
                     {count.map((c, index) => (
                         <Col

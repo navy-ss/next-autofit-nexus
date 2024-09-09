@@ -7,7 +7,7 @@ const createChartConfig = (dataObj) => {
   const eChart = {
     series: [
       {
-        name: "Sales",
+        name: "Total",
         data: seriesData, // Use the extracted data points for the series
       },
     ],
@@ -44,7 +44,13 @@ const createChartConfig = (dataObj) => {
         strokeDashArray: 2,
       },
       xaxis: {
-        categories: ["Feb", "Mar", "Apr", "May", "Jun"], // Adjusted for 5 data points
+        categories: [
+          "Ideal Fit",
+          "Good Fit",
+          "Possible with adjustments",
+          "Not Suitable",
+          "Needs further investigation",
+        ],
         labels: {
           show: true,
           align: "right",
@@ -52,10 +58,21 @@ const createChartConfig = (dataObj) => {
           maxWidth: 160,
           style: {
             colors: Array(seriesData.length).fill("#fff"), // Labels color
+          },
+          formatter: function (val) {
+            return val.length > 10 ? val.substring(0, 10) + "..." : val;
           },
         },
       },
       yaxis: {
+        title: {
+          text: "No of Processes",
+          style: {
+            color: "#ccc",
+            fontSize: "14px",
+            fontWeight: 600,
+          },
+        },
         labels: {
           show: true,
           align: "right",
@@ -64,7 +81,14 @@ const createChartConfig = (dataObj) => {
           style: {
             colors: Array(seriesData.length).fill("#fff"), // Labels color
           },
+          formatter: function (val) {
+            return Math.floor(val); // Ensure y-axis values are whole numbers
+          },
         },
+        min: 0,
+        max: Math.max(...seriesData), // Dynamically set the max value
+        tickAmount: Math.max(...seriesData), // Ensure tick amount matches the max value
+        forceNiceScale: true, // Disable "nice" scale to avoid decimal ticks
       },
       legend: {
         labels: {
@@ -72,10 +96,25 @@ const createChartConfig = (dataObj) => {
         },
       },
       tooltip: {
+        x: {
+          formatter: function (val) {
+            return val;
+          },
+        },
         y: {
           formatter: function (val) {
-            return "$ " + val + " thousands";
+            return val;
           },
+        },
+      },
+      title: {
+        text: "Summary of Processes Evaluated",
+        align: "center",
+        style: {
+          color: "#fff",
+          fontSize: "18px",
+          fontWeight: 500,
+          letterSpacing: "0.5px",
         },
       },
     },

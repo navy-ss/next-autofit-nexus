@@ -10,24 +10,24 @@ function LineChart({ data }) {
     <>
       <div className="linechart">
         <div>
-          <Title level={5}>Active Users</Title>
+          <Title level={5}>Summary of Processes Evaluated</Title>
           <Paragraph className="lastweek">
             than last week <span className="bnb2">+30%</span>
           </Paragraph>
         </div>
-        <div className="sales">
+        {/* <div className="sales">
           <ul>
             <li>{<MinusOutlined />} Traffic</li>
             <li>{<MinusOutlined />} Sales</li>
           </ul>
-        </div>
+        </div> */}
       </div>
 
       <ReactApexChart
         className="full-width"
         options={lineChart.options}
         series={lineChart.series}
-        type="area"
+        type="line"
         height={350}
         width={"100%"}
       />

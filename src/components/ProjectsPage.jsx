@@ -27,9 +27,9 @@ const ProjectsPage = ({ data }) => {
     };
 
     const PROJECT_TABS = [
-        { key: 'all', label: 'All projects' },
-        { key: 'inProgress', label: 'Active' },
-        { key: 'onHold', label: 'On Hold' },
+        { key: 'all', label: 'All Processes' },
+        { key: 'inProgress', label: 'Completed' },
+        { key: 'onHold', label: 'Pending' },
     ];
 
     const onProjectsTabChange = (key) => {
@@ -40,12 +40,12 @@ const ProjectsPage = ({ data }) => {
         <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, { xs: 8, sm: 16, md: 24, lg: 32 }]}>
             <Col span={24}>
                 <Card
-                    title="Projects"
+                    title="Process Table"
                     className='criclebox h-full'
                     extra={
                         <Space>
                             <Button icon={<CloudUploadOutlined />}>Import</Button>
-                            <Button icon={<PlusOutlined />}>New project</Button>
+                            <Button icon={<PlusOutlined />}>New processes</Button>
                         </Space>
                     }
                     tabList={PROJECT_TABS}

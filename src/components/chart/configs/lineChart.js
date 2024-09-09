@@ -7,62 +7,86 @@ const createLineChartConfig = (dataObj) => {
   const lineChart = {
     series: [
       {
-        name: "Mobile apps",
-        data: seriesData, // Use the extracted data points for the series
-        offsetY: 0,
+        name: "Total",
+        data: seriesData, // Keep all data points in a single series
       },
-      // Add more series if needed, using similar dynamic extraction
     ],
 
     options: {
       chart: {
         width: "100%",
         height: 350,
-        type: "area",
+        type: "line",
         toolbar: {
           show: false,
         },
       },
 
       legend: {
-        show: true, // Enable legend to show series names
+        show: true,
         labels: {
-          colors: "#fff", // Set legend labels color to white
+          colors: "#fff",
         },
       },
 
       dataLabels: {
         enabled: false,
       },
+
       stroke: {
         curve: "smooth",
+        width: 2,
+        // colors: colors, // Use the colors array for the stroke
+      },
+
+      markers: {
+        size: 5,
+        // colors: colors, // Different color for each marker
+        strokeColor: "#fff",
+        strokeWidth: 2,
       },
 
       yaxis: {
+        title: {
+          text: "No of Processes",
+          style: {
+            color: "#8c8c8c",
+            fontSize: "14px",
+            fontWeight: 600,
+          },
+        },
         labels: {
           style: {
             fontSize: "14px",
             fontWeight: 600,
             colors: ["#8c8c8c"],
           },
+          formatter: function (val) {
+            return Math.floor(val); // Ensure y-axis values are whole numbers
+          },
         },
+        min: 0,
+        max: Math.max(...seriesData), // Set max based on data
+        tickAmount: Math.max(...seriesData), // Ensure tick amount matches the max value
+        forceNiceScale: true, // Disable "nice" scale to avoid decimal ticks
       },
 
       xaxis: {
-        labels: {
-          style: {
-            fontSize: "14px",
-            fontWeight: 600,
-            colors: Array(seriesData.length).fill("#8c8c8c"), // Labels color
-          },
-        },
+
         categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-        ],
+          "Ideal Fit",
+          "Good Fit",
+          "Possible with adjustments",
+          "Not Suitable",
+          "Needs further investigation",
+        ].map((val) => (val.length > 20 ? val.substring(0, 20) + "..." : val)), // Truncate long labels
+      },
+      labels: {
+        style: {
+          fontSize: "14px",
+          fontWeight: 600,
+          colors: Array(seriesData.length).fill("#8c8c8c"),
+        },
       },
 
       // colors: colors, // Use the extracted colors array
