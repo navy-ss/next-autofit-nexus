@@ -96,7 +96,7 @@ function Dashboard() {
                 bnb: "bnb2",
             },
             {
-                today: "Avg Duration to Recover Investments",
+                today: "Avg Duration to Recover Investments (In Months)",
                 title: validDurations.length > 0 ? `${avgDurationRecovery.toFixed(2)}` : "N/A", // Show N/A if no valid duration
                 persent: "10%",
                 icon: <CalendarOutlined />,
@@ -113,7 +113,7 @@ function Dashboard() {
                 <div className="header-text">
                     Total Number of Processes Evaluated:  {data.length}
                 </div>
-                <Row className="rowgap-vbox" gutter={[24, 0]}>
+                <Row className="rowgap-vbox" gutter={[12, 0]}>
                     {count.map((c, index) => (
                         <Col
                             key={index}
@@ -124,13 +124,14 @@ function Dashboard() {
                             xl={6}
                             className="mb-24"
                         >
-                            <Card bordered={false} className="criclebox ">
+                            <Card bordered={false} className="criclebox h-full">
                                 <div className="number">
-                                    <Row align="middle" gutter={[24, 0]}>
+                                    <Row align="middle" gutter={[24, 0]} style={{ minHeight: "100px" }}>
                                         <Col xs={18}>
                                             <span>{c.today}</span>
                                             <Title level={3}>
-                                                {c.title} <small className={c.bnb}>{c.persent}</small>
+                                                {c.title}
+                                                {/* <small className={c.bnb}>{c.persent}</small> */}
                                             </Title>
                                         </Col>
                                         <Col xs={6}>

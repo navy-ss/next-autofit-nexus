@@ -11,9 +11,9 @@ function LineChart({ data }) {
       <div className="linechart">
         <div>
           <Title level={5}>Summary of Processes Evaluated</Title>
-          <Paragraph className="lastweek">
+          {/* <Paragraph className="lastweek">
             than last week <span className="bnb2">+30%</span>
-          </Paragraph>
+          </Paragraph> */}
         </div>
         {/* <div className="sales">
           <ul>

@@ -21,9 +21,9 @@ const RoiResult = ({ onRetest, resultData = {} }) => {
 
     // Icons for the different types
     const iconMap = {
-        "No of hours": <ClockCircleOutlined />,
-        "HC": <UserOutlined />,
-        "Total FTE Cost/Savings": <DollarOutlined />,
+        "No of Hours Saved": <ClockCircleOutlined />,
+        "Expected FTE Savings": <UserOutlined />,
+        "Expected Cost Savings": <DollarOutlined />,
     };
 
     // Generate cards dynamically
@@ -52,7 +52,7 @@ const RoiResult = ({ onRetest, resultData = {} }) => {
 
     return (
         <div className="roi-result-container">
-            <Title level={2}>Expected FTE Cost Savings</Title>
+            <Title level={2}>Expected Savings</Title>
             <Row className="rowgap-vbox" gutter={[24, 0]}>
                 {cards.map((card, index) => (
                     <Col
