@@ -10,7 +10,7 @@ function LineChart({ data }) {
     <>
       <div className="linechart">
         <div>
-          <Title level={5}>Summary of Processes Evaluated</Title>
+          <Title level={5}>Key Metrics for Process Efficiency</Title>
           {/* <Paragraph className="lastweek">
             than last week <span className="bnb2">+30%</span>
           </Paragraph> */}
@@ -27,8 +27,8 @@ function LineChart({ data }) {
         className="full-width"
         options={lineChart.options}
         series={lineChart.series}
-        type="line"
-        height={350}
+        type="bar"
+        height={380}
         width={"100%"}
       />
     </>

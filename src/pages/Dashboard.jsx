@@ -22,14 +22,18 @@ function Dashboard() {
     const [data, setData] = useState([]);
     const [count, setCount] = useState([]);
     const [formattedData, setFormattedData] = useState([]);
+    const [formattedData1, setFormattedData1] = useState([]);
     const navigate = useNavigate(); // Initialize useNavigate
 
     useEffect(() => {
         setLoading(true);
         getDashboardData().then((data) => {
-            // console.log(data);
+            // console.log(JSON.stringify(data));
             const dataList = chartData(data);
+            const dataList1 = chartData1(data);
             setFormattedData(dataList);
+            setFormattedData1(dataList1);
+            console.log("dataList1", JSON.stringify(dataList1));
             const countData = calculateData(data);
             setCount(countData);
             setData(data);
@@ -39,6 +43,28 @@ function Dashboard() {
             setLoading(false);
         });
     }, []);
+
+    const chartData1 = (data) => {
+        const colors = ["springgreen", "lightgreen", "lemonchiffon", "lightgray", "lightskyblue"];
+
+        // Initialize an object to store the sum of hours_saved, fte_reduction, and fte_cost_savings for each color
+        const colorData = colors.reduce((acc, color) => {
+            acc[color] = { hours_saved: 0, fte_reduction: 0, fte_cost_savings: 0 }; // Initialize each data point to 0
+            return acc;
+        }, {});
+
+        // Iterate over the data to aggregate the values for each color
+        data.forEach(item => {
+            const color = item.row_color;
+            if (colorData[color] !== undefined) {
+                colorData[color].hours_saved += item.hours_saved || 0;
+                colorData[color].fte_reduction += item.fte_reduction || 0;
+                colorData[color].fte_cost_savings += item.fte_cost_savings || 0;
+            }
+        });
+
+        return colorData; // Return the object containing the data for each color
+    };
 
     const chartData = (data) => {
         const colors = ["springgreen", "lightgreen", "lemonchiffon", "lightgray", "lightskyblue"];
@@ -152,7 +178,7 @@ function Dashboard() {
                     </Col>
                     <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
                         <Card bordered={false} className="criclebox h-full">
-                            <LineChart data={formattedData} />
+                            <LineChart data={formattedData1} />
                         </Card>
                     </Col>
                 </Row>

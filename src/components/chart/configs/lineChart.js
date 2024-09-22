@@ -1,106 +1,91 @@
 const createLineChartConfig = (dataObj) => {
-  // Extract series data and colors from dataObj
-  const seriesData = Object.values(dataObj); // Extract the data points
-  const colors = Object.keys(dataObj); // Extract the colors
+  const hoursSavedSeries = Object.keys(dataObj).map(color => dataObj[color].hours_saved || 0);
+  const fteReductionSeries = Object.keys(dataObj).map(color => dataObj[color].fte_reduction || 0);
+  const fteCostSavingsSeries = Object.keys(dataObj).map(color => dataObj[color].fte_cost_savings || 0);
 
-  // Construct the line chart configuration
-  const lineChart = {
+  // X-axis categories
+  const categories = [
+    "Ideal Fit",
+    "Good Fit",
+    "Possible with adjustments",
+    "Not Suitable",
+    "Needs further investigation",
+  ];
+
+  const columnChart = {
     series: [
       {
-        name: "Total",
-        data: seriesData, // Keep all data points in a single series
+        name: "Hours Saved",
+        data: hoursSavedSeries,
+      },
+      {
+        name: "FTE Reduction",
+        data: fteReductionSeries,
+      },
+      {
+        name: "FTE Cost Savings",
+        data: fteCostSavingsSeries,
       },
     ],
-
     options: {
       chart: {
-        width: "100%",
+        type: "bar",
         height: 350,
-        type: "line",
-        toolbar: {
-          show: false,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '55%',
+          endingShape: 'rounded',
         },
       },
-
-      legend: {
-        show: true,
-        labels: {
-          colors: "#fff",
-        },
-      },
-
+      colors: ['#414bb2', '#77B6EA', '#FCCF31'],
       dataLabels: {
         enabled: false,
       },
-
       stroke: {
-        curve: "smooth",
+        show: true,
         width: 2,
-        // colors: colors, // Use the colors array for the stroke
+        colors: ['transparent'],
       },
-
-      markers: {
-        size: 5,
-        // colors: colors, // Different color for each marker
-        strokeColor: "#fff",
-        strokeWidth: 2,
+      xaxis: {
+        categories: categories, // Use predefined X-axis labels
+        title: {
+          text: 'Process Fit Categories', // Updated title
+        },
       },
-
       yaxis: {
         title: {
-          text: "No of Processes",
-          style: {
-            color: "#8c8c8c",
-            fontSize: "14px",
-            fontWeight: 600,
-          },
+          text: 'Values',
         },
         labels: {
-          style: {
-            fontSize: "14px",
-            fontWeight: 600,
-            colors: ["#8c8c8c"],
-          },
           formatter: function (val) {
-            return Math.floor(val); // Ensure y-axis values are whole numbers
+            return Math.floor(val); // Ensure no decimal points on Y-axis values
           },
         },
-        min: 0,
-        max: Math.max(...seriesData), // Set max based on data
-        tickAmount: Math.max(...seriesData), // Ensure tick amount matches the max value
-        forceNiceScale: true, // Disable "nice" scale to avoid decimal ticks
       },
-
-      xaxis: {
-
-        categories: [
-          "Ideal Fit",
-          "Good Fit",
-          "Possible with adjustments",
-          "Not Suitable",
-          "Needs further investigation",
-        ].map((val) => (val.length > 20 ? val.substring(0, 20) + "..." : val)), // Truncate long labels
+      fill: {
+        opacity: 1,
       },
-      labels: {
-        style: {
-          fontSize: "14px",
-          fontWeight: 600,
-          colors: Array(seriesData.length).fill("#8c8c8c"),
-        },
-      },
-
-      // colors: colors, // Use the extracted colors array
       tooltip: {
         y: {
           formatter: function (val) {
-            return val;
+            return Math.floor(val); // Remove decimal points in tooltip as well
           },
+        },
+      },
+      legend: {
+        labels: {
+          colors: ['#000'], // You can adjust this based on your theme
+        },
+        title: {
+          text: 'Metrics', // Updated legend title from 'Colors' to 'Metrics'
         },
       },
     },
   };
 
-  return lineChart;
+  return columnChart;
 };
 
 export default createLineChartConfig;
