@@ -9,7 +9,7 @@ function HomePage() {
       <div className="banner-img">
         <div className="banner-img-container">
           <div className="banner-title">
-            AutoFit Nexus
+            Automation Potential Evaluator
           </div>
         </div>
 
