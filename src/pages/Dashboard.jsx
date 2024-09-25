@@ -22,7 +22,7 @@ function Dashboard() {
     const [data, setData] = useState([]);
     const [count, setCount] = useState([]);
     const [formattedData, setFormattedData] = useState([]);
-    const [formattedData1, setFormattedData1] = useState([]);
+    // const [lineData, setLineData] = useState([]);
     const navigate = useNavigate(); // Initialize useNavigate
 
     useEffect(() => {
@@ -30,10 +30,10 @@ function Dashboard() {
         getDashboardData().then((data) => {
             // console.log(JSON.stringify(data));
             const dataList = chartData(data);
-            const dataList1 = chartData1(data);
+            // const lineDataList = lineChartData(data);
             setFormattedData(dataList);
-            setFormattedData1(dataList1);
-            console.log("dataList1", JSON.stringify(dataList1));
+            // setLineData(lineDataList);
+            // console.log("dataList1", JSON.stringify(dataList1));
             const countData = calculateData(data);
             setCount(countData);
             setData(data);
@@ -44,27 +44,27 @@ function Dashboard() {
         });
     }, []);
 
-    const chartData1 = (data) => {
-        const colors = ["springgreen", "lightgreen", "lemonchiffon", "lightgray", "lightskyblue"];
+    // const lineChartData = (data) => {
+    //     const colors = ["springgreen", "lightgreen", "lemonchiffon", "lightgray", "lightskyblue"];
 
-        // Initialize an object to store the sum of hours_saved, fte_reduction, and fte_cost_savings for each color
-        const colorData = colors.reduce((acc, color) => {
-            acc[color] = { hours_saved: 0, fte_reduction: 0, fte_cost_savings: 0 }; // Initialize each data point to 0
-            return acc;
-        }, {});
+    //     // Initialize an object to store the sum of hours_saved, fte_reduction, and fte_cost_savings for each color
+    //     const colorData = colors.reduce((acc, color) => {
+    //         acc[color] = { hours_saved: 0, fte_reduction: 0, fte_cost_savings: 0 }; // Initialize each data point to 0
+    //         return acc;
+    //     }, {});
 
-        // Iterate over the data to aggregate the values for each color
-        data.forEach(item => {
-            const color = item.row_color;
-            if (colorData[color] !== undefined) {
-                colorData[color].hours_saved += item.hours_saved || 0;
-                colorData[color].fte_reduction += item.fte_reduction || 0;
-                colorData[color].fte_cost_savings += item.fte_cost_savings || 0;
-            }
-        });
+    //     // Iterate over the data to aggregate the values for each color
+    //     data.forEach(item => {
+    //         const color = item.row_color;
+    //         if (colorData[color] !== undefined) {
+    //             colorData[color].hours_saved += item.hours_saved || 0;
+    //             colorData[color].fte_reduction += item.fte_reduction || 0;
+    //             colorData[color].fte_cost_savings += item.fte_cost_savings || 0;
+    //         }
+    //     });
 
-        return colorData; // Return the object containing the data for each color
-    };
+    //     return colorData; // Return the object containing the data for each color
+    // };
 
     const chartData = (data) => {
         const colors = ["springgreen", "lightgreen", "lemonchiffon", "lightgray", "lightskyblue"];
@@ -139,46 +139,31 @@ function Dashboard() {
                 <div className="header-text">
                     Total Number of Processes Evaluated:  {data.length}
                 </div>
-                <Row className="rowgap-vbox" gutter={[12, 0]}>
-                    {count.map((c, index) => (
-                        <Col
-                            key={index}
-                            xs={24}
-                            sm={24}
-                            md={12}
-                            lg={6}
-                            xl={6}
-                            className="mb-24"
-                        >
-                            <Card bordered={false} className="criclebox h-full">
-                                <div className="number">
-                                    <Row align="middle" gutter={[24, 0]} style={{ minHeight: "100px" }}>
-                                        <Col xs={18}>
-                                            <span>{c.today}</span>
-                                            <Title level={3}>
-                                                {c.title}
-                                                {/* <small className={c.bnb}>{c.persent}</small> */}
-                                            </Title>
-                                        </Col>
-                                        <Col xs={6}>
-                                            <div className="icon-box">{c.icon}</div>
-                                        </Col>
-                                    </Row>
-                                </div>
-                            </Card>
-                        </Col>
-                    ))}
-                </Row>
-
                 <Row gutter={[24, 0]}>
-                    <Col xs={24} sm={24} md={12} lg={12} xl={10} className="mb-24">
+                    <Col xs={24} sm={24} md={24} lg={12} xl={10} xxl={10} className="kpi mb-12">
+                        {count.map((c, index) => (
+                            <Col key={index} xs={24} sm={24} md={24} lg={24} xl={24} className="mb-12">
+                                <Card bordered={false} className="criclebox h-full">
+                                    <div className="number">
+                                        <Row align="middle" gutter={[24, 0]}>
+                                            <Col xs={18}>
+                                                <span>{c.today}</span>
+                                                <Title level={3}>
+                                                    {c.title}
+                                                </Title>
+                                            </Col>
+                                            <Col xs={6}>
+                                                <div className="icon-box">{c.icon}</div>
+                                            </Col>
+                                        </Row>
+                                    </div>
+                                </Card>
+                            </Col>
+                        ))}
+                    </Col>
+                    <Col xs={24} sm={24} md={24} lg={12} xl={14} xxl={14} className="mb-24">
                         <Card bordered={false} className="criclebox h-full">
                             <Echart data={formattedData} />
-                        </Card>
-                    </Col>
-                    <Col xs={24} sm={24} md={12} lg={12} xl={14} className="mb-24">
-                        <Card bordered={false} className="criclebox h-full">
-                            <LineChart data={formattedData1} />
                         </Card>
                     </Col>
                 </Row>
